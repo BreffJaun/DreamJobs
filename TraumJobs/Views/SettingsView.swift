@@ -8,38 +8,44 @@
 import SwiftUI
 
 struct SettingsView: View {
-    
+
     @AppStorage("username") private var username = ""
+    @AppStorage("userEmail") private var userEmail = ""
     @AppStorage("age") private var age = ""
+    @AppStorage("birthDate") private var birthDate = Date()
+    @AppStorage("city") private var city = ""
+    @AppStorage("notificationsEnabled") private var notificationsEnabled = false
     
+    @State private var showingAppSettingsSheet = false
     
     var body: some View {
-        VStack(spacing: 16) {
-            TextField("Enter your username", text: $username)
-                .padding(10)
-                            .background(Color.clear)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 8)
-                                    .stroke(Color.white, lineWidth: 1)
-                            )
-            TextField("Enter your age", text: $age)
-                .keyboardType(.numberPad)
-                .padding(10)
-                .background(Color.clear)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 8)
-                        .stroke(Color.white, lineWidth: 1)
-                )
-            Button("Save") {
+        NavigationView {
+            Form {
+                Section(header: Text("User")) {
+                    TextField("Username", text: $username)
+                    TextField("Email", text: $userEmail)
+                        .keyboardType(.emailAddress)
+                    TextField("Age", text: $age)
+                        .keyboardType(.numberPad)
+                    DatePicker("Birthdate", selection: $birthDate, displayedComponents: .date)
+                    TextField("City", text: $city)
+                }
                 
+                Section {
+                    Button("Open App Settings") {
+                        showingAppSettingsSheet = true
+                    }
+                }
             }
-//            } label: {
-//                Label("Save", systemImage: "tray.and.arrow.down")
-//            }
+            .navigationTitle("Settings")
+            .sheet(isPresented: $showingAppSettingsSheet) {
+                AppSettingsSheet()
+            }
         }
-        .padding()
     }
 }
+
+
 
 //#Preview {
 //    SettingsView()
