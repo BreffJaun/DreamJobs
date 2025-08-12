@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SettingsView: View {
+    @Environment(\.colorScheme) var colorScheme
     
     @FocusState private var focus: UserInfoFocus?
 
@@ -21,50 +22,65 @@ struct SettingsView: View {
     @State private var showingAppSettingsSheet = false
     
     var body: some View {
-        NavigationView {
-            Form {
-                Section(header: Text("User")) {
-                    TextField("Username", text: $username)
-                        .focused($focus, equals: .name)
-                    TextField("Email", text: $userEmail)
-                        .focused($focus, equals: .email)
-                        .keyboardType(.emailAddress)
-                    TextField("Age", text: $age)
-                        .focused($focus, equals: .age)
-                        .keyboardType(.numberPad)
-                    DatePicker("Birthdate", selection: $birthDate, displayedComponents: .date)
-                        .focused($focus, equals: .birthdate)
-                    TextField("City", text: $city)
-                        .focused($focus, equals: .city)
-                }
-                
-                Section {
-                    Button(action: {
-                        showingAppSettingsSheet = true
-                    }) {
-                        Text("Open App Settings")
-                            .frame(maxWidth: .infinity)
-                            .multilineTextAlignment(.center)
-                            .foregroundStyle(.blue)
+        ZStack {
+            (colorScheme == .light
+             ? Color(.systemGray5)
+             : Color(.systemGray6))
+            .ignoresSafeArea()
+            
+            NavigationView {
+                Form {
+                    Section(header: Text("User")) {
+                        TextField("Username", text: $username)
+                            .focused($focus, equals: .name)
+                        TextField("Email", text: $userEmail)
+                            .focused($focus, equals: .email)
+                            .keyboardType(.emailAddress)
+                        TextField("Age", text: $age)
+                            .focused($focus, equals: .age)
+                            .keyboardType(.numberPad)
+                        DatePicker("Birthdate", selection: $birthDate, displayedComponents: .date)
+                            .focused($focus, equals: .birthdate)
+                        TextField("City", text: $city)
+                            .focused($focus, equals: .city)
+                    }
+//                    .listRowBackground(
+//                        RoundedRectangle(cornerRadius: 10)
+//                            .stroke(Color.gray, lineWidth: 1)
+//                            .background(Color(UIColor.systemBackground))
+//                    )
+                    
+                    
+                    Section {
+                        Button(action: {
+                            showingAppSettingsSheet = true
+                        }) {
+                            Text("Open App Settings")
+                                .frame(maxWidth: .infinity)
+                                .multilineTextAlignment(.center)
+                                .foregroundStyle(.blue)
+                        }
                     }
                 }
-            }
-            .navigationTitle("User Information")
-            .sheet(isPresented: $showingAppSettingsSheet) {
-                AppSettingsSheet()
-            }
-            .onSubmit {
-                switch focus {
-                case .name:
-                    focus = .email
-                case .email:
-                    focus = .age
-                case .age:
-                    focus = .city
-                case .city:
-                    focus = nil
-                default:
-                    break
+//                .scrollContentBackground(.hidden) // Macht den Hintergrund transparent
+//                .background(colorScheme == .light ? Color(.systemGray5) : Color(.systemGray6))
+                .navigationTitle("User Information")
+                .sheet(isPresented: $showingAppSettingsSheet) {
+                    AppSettingsSheet()
+                }
+                .onSubmit {
+                    switch focus {
+                    case .name:
+                        focus = .email
+                    case .email:
+                        focus = .age
+                    case .age:
+                        focus = .city
+                    case .city:
+                        focus = nil
+                    default:
+                        break
+                    }
                 }
             }
         }

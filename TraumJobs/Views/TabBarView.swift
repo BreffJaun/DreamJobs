@@ -12,28 +12,23 @@ struct TabBarView: View {
     
     
     var body: some View {
-        ZStack {
-            (colorScheme == .light
-                    ? Color(.systemGray5)
-                    : Color(.systemGray6))
-                .ignoresSafeArea()
+        
+        
+        TabView {
+            Tab("Settings", systemImage: "house.fill") {
+                SettingsView()
+            }
             
-            TabView {
-                Tab("Settings", systemImage: "house.fill") {
-                    SettingsView()
-                }
+            Tab("Jobs", systemImage: "suitcase.fill") {
                 
-                Tab("Jobs", systemImage: "suitcase.fill") {
-                    
-                }
+            }
+            
+            Tab("Favorites", systemImage: "star.fill") {
                 
-                Tab("Favorites", systemImage: "star.fill") {
-                    
-                }
+            }
+            
+            Tab("Skills", systemImage: "sparkles") {
                 
-                Tab("Skills", systemImage: "sparkles") {
-                   
-                }
             }
         }
     }
