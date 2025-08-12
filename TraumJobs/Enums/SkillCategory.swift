@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum SkillCategory: String, CaseIterable, Identifiable {
+enum SkillCategory: String, CaseIterable, Identifiable, Codable {
     case technical = "Technical"
     case language = "Language"
     case social = "Social"

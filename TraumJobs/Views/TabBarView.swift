@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TabBarView: View {
-    @Environment(\.colorScheme) var colorScheme
+//    @Environment(\.colorScheme) var colorScheme
     
     
     var body: some View {
@@ -20,7 +20,7 @@ struct TabBarView: View {
             }
             
             Tab("Jobs", systemImage: "suitcase.fill") {
-                
+                JobsView()
             }
             
             Tab("Favorites", systemImage: "star.fill") {
@@ -36,4 +36,9 @@ struct TabBarView: View {
 
 #Preview {
     TabBarView()
+        .modelContainer(for: [
+            Favorite.self,
+            Job.self,
+            Skill.self
+        ], inMemory: true)
 }

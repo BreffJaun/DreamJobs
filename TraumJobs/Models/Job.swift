@@ -21,13 +21,13 @@ class Job {
     var experienceLevel: ExperienceLevel
     var publicationDate: Date
     var applicationDeadline: Date?
-//    @Relationship var requiredSkills: [Skill] = []
-    
+    @Relationship var requiredSkills: [Skill] = []
+    // defines an automatically managed link to SEVERAL skill objects.
     
     init(
         title: String,
         details: String,
-//        requiredSkills: [Skill],
+        requiredSkills: [Skill],
         location: String,
         salary: Double,
         companyName: String,
@@ -38,7 +38,7 @@ class Job {
     ) {
         self.title = title
         self.details = details
-//        self.requiredSkills = requiredSkills
+        self.requiredSkills = requiredSkills
         self.location = location
         self.salary = salary
         self.companyName = companyName
