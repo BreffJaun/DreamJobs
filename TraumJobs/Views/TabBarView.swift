@@ -24,7 +24,7 @@ struct TabBarView: View {
             }
             
             Tab("Favorites", systemImage: "star.fill") {
-                
+                JobsFavoriteView()
             }
             
             Tab("Skills", systemImage: "sparkles") {

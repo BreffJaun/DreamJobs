@@ -1,85 +1,24 @@
 //
-//  JobAddView.swift
+//  JobsFavoriteView.swift
 //  TraumJobs
 //
-//  Created by Jeff Braun on 12.08.25.
+//  Created by Jeff Braun on 13.08.25.
 //
 
 import SwiftUI
 import SwiftData
 
-//struct JobsView: View {
-//    @Environment(\.colorScheme) var colorScheme
-//    @Environment(\.modelContext) private var context
-//
-//    @Query(sort: \Job.publicationDate, order: .reverse) private var jobs: [Job]
-//
-//    @State private var showAddJobSheet: Bool = false
-//    @State private var didLoadDummyData = false
-//
-//    var body: some View {
-//        NavigationStack {
-//            ZStack {
-//                (colorScheme == .light
-//                 ? Color(.systemGray5)
-//                 : Color(.systemGray6))
-//                .ignoresSafeArea()
-//
-//                ScrollView {
-//                    ForEach(jobs) { job in
-//                        NavigationLink {
-//                            JobDetailView(job: job)
-//                        } label: {
-//                            JobListItemView(job: job)
-//                        }
-//                        .buttonStyle(.plain)
-//                    }
-//                }
-//                .padding()
-//
-//            }
-//            .navigationTitle("Jobs")
-//            .onAppear {
-//                loadDummyJobsIfNeeded()
-//            }
-//            .toolbar {
-//                ToolbarItem(placement: .navigationBarTrailing) {
-//                    NavigationLink {
-//                        AddJobsView()
-//                    } label: {
-//                        Image(systemName: "plus.circle.fill")
-//                    }
-//                }
-//            }
-//        }
-//    }
-//
-//    private func loadDummyJobsIfNeeded() {
-//        guard !didLoadDummyData else { return }
-//        if jobs.isEmpty {
-//            for job in dummyJobs {
-//                context.insert(job)
-//            }
-//            didLoadDummyData = true
-//        }
-//    }
-//
-//    private func toggleFavorite(job: Job) {
-//        job.isFavorite.toggle()
-//
-//        do {
-//            try context.save()
-//        } catch {
-//            print("Error when saving: \(error)")
-//        }
-//    }
-//}
-
-struct JobsView: View {
+struct JobsFavoriteView: View {
     @Environment(\.modelContext) private var context
     @Environment(\.colorScheme) var colorScheme
     
-    @Query(sort: \Job.publicationDate, order: .reverse) private var jobs: [Job]
+    @Query(
+        filter: #Predicate<Job> { $0.isFavorite == true },
+        sort: \Job.publicationDate,
+        order: .reverse
+    )
+    private var jobs: [Job]
+
     
     @State private var showAddJobSheet: Bool = false
     @State private var didLoadDummyData = false
@@ -115,8 +54,6 @@ struct JobsView: View {
                                 Image(systemName: job.isFavorite ? "star.fill" : "star")
                             }
                             .tint(job.isFavorite ? .yellow : .gray)
-                            
-                            
                         }
                     }
                 }
@@ -124,10 +61,7 @@ struct JobsView: View {
                 .scrollContentBackground(.hidden)
                 .background(colorScheme == .light ? Color(.systemGray5) : Color(.systemGray6))
             }
-            .navigationTitle("Jobs")
-            .onAppear {
-                loadDummyJobsIfNeeded()
-            }
+            .navigationTitle("Favorite Jobs")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink {
@@ -137,16 +71,6 @@ struct JobsView: View {
                     }
                 }
             }
-        }
-    }
-    
-    private func loadDummyJobsIfNeeded() {
-        guard !didLoadDummyData else { return }
-        if jobs.isEmpty {
-            for job in dummyJobs {
-                context.insert(job)
-            }
-            didLoadDummyData = true
         }
     }
     
@@ -167,9 +91,12 @@ struct JobsView: View {
             print("Error deleting job: \(error)")
         }
     }
-
 }
 
 //#Preview {
-//    JobAddView()
+//    JobsFavoriteView()
 //}
+
+
+
+

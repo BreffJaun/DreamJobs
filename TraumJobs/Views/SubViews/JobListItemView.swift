@@ -17,12 +17,12 @@ struct JobListItemView: View {
                 Image(uiImage: uiImage)
                     .resizable()
                     .scaledToFill()
-                    .frame(width: 60, height: 60)
+                    .frame(width: 80, height: 80)
                     .clipShape(RoundedRectangle(cornerRadius: 8))
             } else {
                 RoundedRectangle(cornerRadius: 8)
                     .fill(Color.gray.opacity(0.3))
-                    .frame(width: 60, height: 60)
+                    .frame(width: 80, height: 80)
                     .overlay(
                         Image(systemName: "briefcase.fill")
                             .foregroundColor(.gray)
@@ -37,11 +37,21 @@ struct JobListItemView: View {
                 Text("\(job.companyName) • \(job.location) • \(job.workModel.rawValue)")
                     .font(.subheadline)
                     .foregroundColor(.secondary)
+                
+                Text("Veröffentlicht: \(job.publicationDate.formatted(date: .numeric, time: .omitted))")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                
+                if let deadline = job.applicationDeadline {
+                    Text("Bewerbungsfrist: \(deadline.formatted(date: .numeric, time: .omitted))")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
             }
             Spacer()
         }
         .padding()
-        .frame(maxWidth: .infinity, alignment: .leading)
+        .frame(maxWidth: .infinity, minHeight: 150, alignment: .leading)
         .background(colorScheme == .light ? Color.white : Color(.systemGray5))
         .cornerRadius(12)
         .shadow(color: Color.black.opacity(0.08), radius: 3, x: 0, y: 1)

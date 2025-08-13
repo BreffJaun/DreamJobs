@@ -10,7 +10,7 @@ import SwiftData
 
 
 @Model
-class Job {
+class Job: Identifiable {
     var id: String = UUID().uuidString
     var title: String
     var details: String
@@ -51,13 +51,17 @@ class Job {
         self.imageData = imageData
     }
     
-    func markAsFavorite() {
-        isFavorite = true
+    func toggleFavorite() {
+        isFavorite.toggle()
     }
     
-    func removeFromFavorites() {
-        isFavorite = false
-    }
+//    func markAsFavorite() {
+//        isFavorite = true
+//    }
+//    
+//    func removeFromFavorites() {
+//        isFavorite = false
+//    }
     
     func apply() {
         // later...
