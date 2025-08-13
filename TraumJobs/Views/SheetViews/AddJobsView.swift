@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 struct AddJobsView: View {
     @Environment(\.modelContext) private var context
@@ -23,6 +24,10 @@ struct AddJobsView: View {
     @State private var tempDeadline: Date = Date()
     @State private var hasApplicationDeadline: Bool = false
     
+    // MARK: Everything beongs to the ImagePicker
+    @State private var selectedImageData: Data?
+    @State private var showImagePicker: Bool = false
+    @State private var selectedItem: PhotosPickerItem? = nil
     
     var body: some View {
         Form {
@@ -61,6 +66,32 @@ struct AddJobsView: View {
                 }
             }
             
+            Section(header: Text("Company Logo")) {
+                if let data = selectedImageData, let uiImage = UIImage(data: data) {
+                    HStack {
+                        Spacer()
+                        Image(uiImage: uiImage)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(maxHeight: 150)
+                        Spacer()
+                    }
+                    .frame(maxWidth: .infinity)
+                }
+                
+                PhotosPicker("Select Image", selection: $selectedItem, matching: .images)
+                    .onChange(of: selectedItem) { _, newItem in
+                        Task {
+                            if let data = try? await newItem?.loadTransferable(type: Data.self) {
+                                selectedImageData = data
+                            }
+                        }
+                    }
+                    .frame(maxWidth: .infinity)
+                    .multilineTextAlignment(.center)
+                    .foregroundStyle(.blue)
+            }
+            
             Button("Save") {
                 saveJob()
             }
@@ -86,7 +117,8 @@ struct AddJobsView: View {
             workModel: workModel,
             experienceLevel: experienceLevel,
             publicationDate: publicationDate,
-            applicationDeadline: applicationDeadline
+            applicationDeadline: applicationDeadline,
+            imageData: selectedImageData
         )
         
         context.insert(newJob)
@@ -102,6 +134,7 @@ struct AddJobsView: View {
         publicationDate = Date()
         applicationDeadline = nil
         hasApplicationDeadline = false
+        selectedImageData = nil
         
         dismiss()
     }

@@ -9,7 +9,7 @@ import Foundation
 
 enum ExperienceLevel: String, CaseIterable, Identifiable, Codable {
     case entryLevel = "Entrylevel"
-    case experiened = "Experienced"
+    case experienced = "Experienced"
     case senior = "Senior"
     case leadership = "Leadership"
     

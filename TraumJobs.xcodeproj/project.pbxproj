@@ -11,6 +11,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		2D7CB4292E4CB70F00120E83 /* JobDetailImages */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = JobDetailImages; sourceTree = "<group>"; };
 		962908C82D6C4F300020C502 /* TraumJobs */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = TraumJobs; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
@@ -28,6 +29,7 @@
 		CE75F2302C8B14A4001AD0A3 = {
 			isa = PBXGroup;
 			children = (
+				2D7CB4292E4CB70F00120E83 /* JobDetailImages */,
 				962908C82D6C4F300020C502 /* TraumJobs */,
 				CE75F23A2C8B14A4001AD0A3 /* Products */,
 			);
@@ -57,6 +59,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
+				2D7CB4292E4CB70F00120E83 /* JobDetailImages */,
 				962908C82D6C4F300020C502 /* TraumJobs */,
 			);
 			name = TraumJobs;

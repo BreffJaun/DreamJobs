@@ -21,8 +21,9 @@ class Job {
     var experienceLevel: ExperienceLevel
     var publicationDate: Date
     var applicationDeadline: Date?
-    @Relationship var requiredSkills: [Skill] = []
-    // defines an automatically managed link to SEVERAL skill objects.
+    @Relationship var requiredSkills: [Skill] = [] // defines an automatically managed link to SEVERAL skill objects.
+    var imageData: Data?
+    var isFavorite: Bool = false
     
     init(
         title: String,
@@ -34,7 +35,8 @@ class Job {
         workModel: WorkModel,
         experienceLevel: ExperienceLevel,
         publicationDate: Date,
-        applicationDeadline: Date? = nil
+        applicationDeadline: Date? = nil,
+        imageData: Data? = nil
     ) {
         self.title = title
         self.details = details
@@ -46,14 +48,15 @@ class Job {
         self.experienceLevel = experienceLevel
         self.publicationDate = publicationDate
         self.applicationDeadline = applicationDeadline
+        self.imageData = imageData
     }
     
     func markAsFavorite() {
-        // later...
+        isFavorite = true
     }
     
     func removeFromFavorites() {
-        // later...
+        isFavorite = false
     }
     
     func apply() {
