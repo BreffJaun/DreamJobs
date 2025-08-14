@@ -10,12 +10,13 @@ import SwiftData
 
 
 @Model
-class Skill {
-    var id: String = UUID().uuidString
+class Skill: Identifiable {
+    var id: UUID = UUID()
     var title: String
     var details: String
     var category: SkillCategory
     var relevance: Int
+    @Relationship(inverse: \Job.requiredSkills) var jobs: [Job] = []
     
     init(
         title: String,

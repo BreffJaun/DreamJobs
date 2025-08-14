@@ -28,7 +28,7 @@ struct TabBarView: View {
             }
             
             Tab("Skills", systemImage: "sparkles") {
-                
+                SkillsViewSet()
             }
         }
     }

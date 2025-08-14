@@ -8,78 +8,12 @@
 import SwiftUI
 import SwiftData
 
-//struct JobsView: View {
-//    @Environment(\.colorScheme) var colorScheme
-//    @Environment(\.modelContext) private var context
-//
-//    @Query(sort: \Job.publicationDate, order: .reverse) private var jobs: [Job]
-//
-//    @State private var showAddJobSheet: Bool = false
-//    @State private var didLoadDummyData = false
-//
-//    var body: some View {
-//        NavigationStack {
-//            ZStack {
-//                (colorScheme == .light
-//                 ? Color(.systemGray5)
-//                 : Color(.systemGray6))
-//                .ignoresSafeArea()
-//
-//                ScrollView {
-//                    ForEach(jobs) { job in
-//                        NavigationLink {
-//                            JobDetailView(job: job)
-//                        } label: {
-//                            JobListItemView(job: job)
-//                        }
-//                        .buttonStyle(.plain)
-//                    }
-//                }
-//                .padding()
-//
-//            }
-//            .navigationTitle("Jobs")
-//            .onAppear {
-//                loadDummyJobsIfNeeded()
-//            }
-//            .toolbar {
-//                ToolbarItem(placement: .navigationBarTrailing) {
-//                    NavigationLink {
-//                        AddJobsView()
-//                    } label: {
-//                        Image(systemName: "plus.circle.fill")
-//                    }
-//                }
-//            }
-//        }
-//    }
-//
-//    private func loadDummyJobsIfNeeded() {
-//        guard !didLoadDummyData else { return }
-//        if jobs.isEmpty {
-//            for job in dummyJobs {
-//                context.insert(job)
-//            }
-//            didLoadDummyData = true
-//        }
-//    }
-//
-//    private func toggleFavorite(job: Job) {
-//        job.isFavorite.toggle()
-//
-//        do {
-//            try context.save()
-//        } catch {
-//            print("Error when saving: \(error)")
-//        }
-//    }
-//}
-
 struct JobsView: View {
     @Environment(\.modelContext) private var context
     @Environment(\.colorScheme) var colorScheme
     
     @Query(sort: \Job.publicationDate, order: .reverse) private var jobs: [Job]
+    @Query private var skills: [Skill]
     
     @State private var showAddJobSheet: Bool = false
     @State private var didLoadDummyData = false
@@ -104,19 +38,17 @@ struct JobsView: View {
                         .listRowBackground(Color.clear)
                         .swipeActions(edge: .trailing) {
                             Button(role: .destructive) {
-                                deleteJob(job: job)
+                                context.delete(job)
                             } label: {
                                 Image(systemName: "trash")
                             }
                             
                             Button {
-                                toggleFavorite(job: job)
+                                job.isFavorite.toggle()
                             } label: {
                                 Image(systemName: job.isFavorite ? "star.fill" : "star")
                             }
                             .tint(job.isFavorite ? .yellow : .gray)
-                            
-                            
                         }
                     }
                 }
@@ -148,23 +80,10 @@ struct JobsView: View {
             }
             didLoadDummyData = true
         }
-    }
-    
-    private func toggleFavorite(job: Job) {
-        job.isFavorite.toggle()
-        do {
-            try context.save()
-        } catch {
-            print("Error saving favorite status: \(error)")
-        }
-    }
-    
-    private func deleteJob(job: Job) {
-        context.delete(job)
-        do {
-            try context.save()
-        } catch {
-            print("Error deleting job: \(error)")
+        if skills.isEmpty {
+            for skill in dummySkills {
+                context.insert(skill)
+            }
         }
     }
 

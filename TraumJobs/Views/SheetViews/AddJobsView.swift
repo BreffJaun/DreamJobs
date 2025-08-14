@@ -6,11 +6,14 @@
 //
 
 import SwiftUI
+import SwiftData
 import PhotosUI
 
 struct AddJobsView: View {
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
+    
+    @Query(sort: \Skill.title) private var allSkills: [Skill]
     
     @State private var title: String = ""
     @State private var details: String = ""
@@ -23,11 +26,15 @@ struct AddJobsView: View {
     @State private var applicationDeadline: Date? = nil
     @State private var tempDeadline: Date = Date()
     @State private var hasApplicationDeadline: Bool = false
+    @State private var selectedSkills: [Skill] = []
     
     // MARK: Everything beongs to the ImagePicker
     @State private var selectedImageData: Data?
     @State private var showImagePicker: Bool = false
     @State private var selectedItem: PhotosPickerItem? = nil
+    
+    
+    
     
     var body: some View {
         Form {
@@ -63,6 +70,45 @@ struct AddJobsView: View {
                         .onAppear {
                             tempDeadline = applicationDeadline ?? Date()
                         }
+                }
+            }
+            
+            Section(header: Text("Skills")) {
+                Menu {
+                    ForEach(allSkills) { skill in
+                        Button {
+                            if !selectedSkills.contains(skill) {
+                                selectedSkills.append(skill)
+                            }
+                        } label: {
+                            Text(skill.title)
+                        }
+                    }
+                } label: {
+                    HStack {
+                        Text("Add Skill")
+                        Spacer()
+                        Image(systemName: "plus.circle")
+                            .foregroundColor(.blue)
+                    }
+                }
+
+                if selectedSkills.isEmpty {
+                    Text("No skills selected yet")
+                        .foregroundColor(.secondary)
+                } else {
+                    ForEach(selectedSkills) { skill in
+                        Text(skill.title)
+                            .swipeActions {
+                                Button(role: .destructive) {
+                                    if let index = selectedSkills.firstIndex(of: skill) {
+                                        selectedSkills.remove(at: index)
+                                    }
+                                } label: {
+                                    Label("Remove", systemImage: "trash")
+                                }
+                            }
+                    }
                 }
             }
             
@@ -110,7 +156,7 @@ struct AddJobsView: View {
         let newJob = Job(
             title: title,
             details: details,
-            requiredSkills: [], // vorerst leer
+            requiredSkills: selectedSkills,
             location: location,
             salary: salaryValue,
             companyName: companyName,
@@ -118,14 +164,16 @@ struct AddJobsView: View {
             experienceLevel: experienceLevel,
             publicationDate: publicationDate,
             applicationDeadline: applicationDeadline,
-            imageData: selectedImageData
+            imageData: selectedImageData,
+            isFavorite: false
         )
         
         context.insert(newJob)
         
-        // Rset form
+        // Reset the form
         title = ""
         details = ""
+        selectedSkills = []
         location = ""
         salary = ""
         companyName = ""

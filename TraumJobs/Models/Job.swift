@@ -10,8 +10,8 @@ import SwiftData
 
 
 @Model
-class Job: Identifiable {
-    var id: String = UUID().uuidString
+class Job {
+    var id: UUID = UUID()
     var title: String
     var details: String
     var location: String
@@ -21,7 +21,7 @@ class Job: Identifiable {
     var experienceLevel: ExperienceLevel
     var publicationDate: Date
     var applicationDeadline: Date?
-    @Relationship var requiredSkills: [Skill] = [] // defines an automatically managed link to SEVERAL skill objects.
+    @Relationship var requiredSkills: [Skill] = []
     var imageData: Data?
     var isFavorite: Bool = false
     
@@ -36,7 +36,8 @@ class Job: Identifiable {
         experienceLevel: ExperienceLevel,
         publicationDate: Date,
         applicationDeadline: Date? = nil,
-        imageData: Data? = nil
+        imageData: Data? = nil,
+        isFavorite: Bool
     ) {
         self.title = title
         self.details = details
@@ -49,19 +50,12 @@ class Job: Identifiable {
         self.publicationDate = publicationDate
         self.applicationDeadline = applicationDeadline
         self.imageData = imageData
+        self.isFavorite = isFavorite
     }
     
     func toggleFavorite() {
         isFavorite.toggle()
     }
-    
-//    func markAsFavorite() {
-//        isFavorite = true
-//    }
-//    
-//    func removeFromFavorites() {
-//        isFavorite = false
-//    }
     
     func apply() {
         // later...
