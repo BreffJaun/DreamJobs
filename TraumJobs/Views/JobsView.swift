@@ -78,13 +78,13 @@ struct JobsView: View {
             for job in dummyJobs {
                 context.insert(job)
             }
-            didLoadDummyData = true
         }
         if skills.isEmpty {
             for skill in dummySkills {
                 context.insert(skill)
             }
         }
+        didLoadDummyData = true
     }
 
 }
