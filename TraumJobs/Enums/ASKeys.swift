@@ -14,5 +14,6 @@ enum ASKeys: String {
     case birthDate
     case city
     case notificationsEnabled
+    case userSkills
 }
 

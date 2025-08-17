@@ -8,15 +8,13 @@
 import SwiftUI
 
 struct TabBarView: View {
-//    @Environment(\.colorScheme) var colorScheme
-    
-    
+
     var body: some View {
         
         
         TabView {
             Tab("Settings", systemImage: "house.fill") {
-                SettingsView()
+                HomeView()
             }
             
             Tab("Jobs", systemImage: "suitcase.fill") {
