@@ -57,9 +57,6 @@ struct JobsView: View {
                 .background(colorScheme == .light ? Color(.systemGray5) : Color(.systemGray6))
             }
             .navigationTitle("Jobs")
-            .onAppear {
-                loadDummyJobsIfNeeded()
-            }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink {
@@ -71,22 +68,6 @@ struct JobsView: View {
             }
         }
     }
-    
-    private func loadDummyJobsIfNeeded() {
-        guard !didLoadDummyData else { return }
-        if jobs.isEmpty {
-            for job in dummyJobs {
-                context.insert(job)
-            }
-        }
-        if skills.isEmpty {
-            for skill in dummySkills {
-                context.insert(skill)
-            }
-        }
-        didLoadDummyData = true
-    }
-
 }
 
 //#Preview {

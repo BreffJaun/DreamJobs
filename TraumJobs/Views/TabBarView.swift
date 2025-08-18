@@ -34,9 +34,10 @@ struct TabBarView: View {
 
 #Preview {
     TabBarView()
-        .modelContainer(for: [
-            Favorite.self,
-            Job.self,
-            Skill.self
-        ], inMemory: true)
+//        .modelContainer(for: [
+//            Favorite.self,
+//            Job.self,
+//            Skill.self
+//        ], inMemory: true)
+        .modelContainer(DataManager.previewContainer)
 }

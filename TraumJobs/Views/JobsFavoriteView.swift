@@ -43,14 +43,12 @@ struct JobsFavoriteView: View {
                         .listRowBackground(Color.clear)
                         .swipeActions(edge: .trailing) {
                             Button(role: .destructive) {
-//                                deleteJob(job: job)
                                 context.delete(job)
                             } label: {
                                 Image(systemName: "trash")
                             }
                             
                             Button {
-//                                toggleFavorite(job: job)
                                 job.isFavorite.toggle()
                             } label: {
                                 Image(systemName: job.isFavorite ? "star.fill" : "star")
@@ -75,24 +73,6 @@ struct JobsFavoriteView: View {
             }
         }
     }
-    
-//    private func toggleFavorite(job: Job) {
-//        job.isFavorite.toggle()
-//        do {
-//            try context.save()
-//        } catch {
-//            print("Error saving favorite status: \(error)")
-//        }
-//    }
-//    
-//    private func deleteJob(job: Job) {
-//        context.delete(job)
-//        do {
-//            try context.save()
-//        } catch {
-//            print("Error deleting job: \(error)")
-//        }
-//    }
 }
 
 //#Preview {
