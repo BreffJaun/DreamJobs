@@ -13,7 +13,7 @@ struct TabBarView: View {
         
         
         TabView {
-            Tab("Settings", systemImage: "house.fill") {
+            Tab("Home", systemImage: "house.fill") {
                 HomeView()
             }
             
