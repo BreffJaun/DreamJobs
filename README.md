@@ -29,3 +29,11 @@ This SwiftUI app helps you collect and persist personal information about job pr
 2. Alternatively, open the `.xcodeproj` or `.xcworkspace` file directly in **Xcode**.  
 3. Click the **Run** ▶️ button in the top toolbar to build and launch the app in the iOS Simulator or on a physical device.  
 4. Use the app to track meals and drinks, add new entries, view details, and delete entries.
+
+---
+
+📝 Disclaimer
+
+This project was developed as part of my training. The source code, structure and documentation are my own work.
+
+© 2025 Jeff Braun. All rights reserved. Licensed under the [MIT License](./LICENSE).
