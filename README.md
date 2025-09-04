@@ -1,5 +1,12 @@
 # DreamJobs
 
+![Swift](https://img.shields.io/badge/Swift-5-orange?logo=swift&logoColor=white)
+![Xcode](https://img.shields.io/badge/Xcode-16.4-blue?logo=xcode&logoColor=white)
+![iOS](https://img.shields.io/badge/iOS-18.0-black?logo=apple&logoColor=white)
+![SwiftUI](https://img.shields.io/badge/SwiftUI-Yes-brightgreen?logo=swift&logoColor=white)
+![SwiftData](https://img.shields.io/badge/SwiftData-Yes-lightgrey?logo=swift&logoColor=white)
+![License: MIT](https://img.shields.io/badge/License-MIT-green)
+
 <img src="TraumJobs/Images/DreamJobs.png" width="75%">
 
 This SwiftUI app helps you collect and persist personal information about job preferences and skills. It supports you in keeping track of your career goals and developing your skills strategically. 💻
